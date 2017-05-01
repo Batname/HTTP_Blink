@@ -21,11 +21,20 @@ void cleanMenu(char *message)
 int main(void)
 {
     int input, int_result;
+    int pin = 7;
     char message[50];
+
+    if (wiringPiSetup() == -1) {
+        printf( "Setup didn't work... Aborting." );
+        exit (1);
+     }
+  
+    pinMode(pin, OUTPUT); 
+    digitalWrite(pin, 0); 
 
     fputs("\033c", stdout);
     printf("Enter a value \n");
-   
+
     // program loop
     while(1)
     {
@@ -38,10 +47,12 @@ int main(void)
 
         if (input == 0)
         {
+            digitalWrite(pin, 0);
             strcpy(message, "now electrisity is 0");
         }
         else if (input == 1)
         {
+            digitalWrite(pin, 1);
             strcpy(message, "now electrisity is 1");
         }
         else if (input == 9)
@@ -51,7 +62,7 @@ int main(void)
         }
         else
         {
-            strcpy(message, "incurrect");
+            strcpy(message, "incurrect value");
         }
     
 

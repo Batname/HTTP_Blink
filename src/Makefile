@@ -7,7 +7,7 @@ CC		= gcc
 iNCLUDE		= -I.
 CFLAGS		= -Wformat=2 -Wall -Wextra -Winline $(INCLUDE) -pipe -fPIC
 
-LIBS		= -lm -lwiringPi -lpthread -lcrypt -lrt
+LIBS		= -lwiringPi -lpthread -lcrypt -lrt -lm
 
 
 SRC		= main.c
@@ -20,7 +20,7 @@ all:		$(EXE)
 
 $(EXE): $(OBJ)
 	$Q echo "[COMPILING]"
-	$Q $(CC) -g -o $(EXE) $(LIBS) $(OBJ)
+	$Q $(CC) -g -o $(EXE) $(OBJ) $(LIBS)
 
 .c.o:
 	$Q $(CC) $(CFLAGS) -c $< -o $@
