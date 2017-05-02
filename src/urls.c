@@ -13,10 +13,10 @@ ntohs(client_addr->sin_port), request);
 
 
     // FOR TEST
-    //send_string(sockfd, "HTTP/1.0 200 OK\r\n");
-    //send_string(sockfd, "Server: Tiny webserver\r\n\r\n");
-    //send_string(sockfd, "<html><head><title>200 OK</title></head>");
-    //send_string(sockfd, "<body><h1>OK</h1></body></html>\r\n");
+    send_string(sockfd, "HTTP/1.0 200 OK\r\n");
+    send_string(sockfd, "Server: Tiny webserver\r\n\r\n");
+    send_string(sockfd, "<html><head><title>200 OK</title></head>");
+    send_string(sockfd, "<body><h1>OK</h1></body></html>\r\n");
 
     shutdown(sockfd, SHUT_RDWR);
 }
