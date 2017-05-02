@@ -18,7 +18,7 @@ int send_string(int sockfd, unsigned char *buffer)
     return 1;
 }
 
-int recive_line(int sockfd, unsigned char *dest_buffer)
+int recv_line(int sockfd, unsigned char *dest_buffer)
 {
     return 1;
 }
