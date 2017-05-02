@@ -10,7 +10,8 @@ CFLAGS		= -Wformat=2 -Wall -Wextra -Winline $(INCLUDE) -pipe -fPIC
 LIBS		= -lwiringPi -lpthread -lcrypt -lrt -lm
 
 
-SRC		= server.c utils.c
+SRC		= server.c utils.c \
+		  urls.c
 
 HEADERS 	= $(shell ls *.h)
 
