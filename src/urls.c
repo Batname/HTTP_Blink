@@ -27,16 +27,19 @@ ntohs(client_addr->sin_port), request);
         {
             request_type = GET;
             ptr = request + 4; // ptr is the URL.
+            ptr[strlen(ptr)-1] = 0;
         }
         if (strncmp(request, "HEAD ", 5) == 0) // HEAD request
         {
             request_type = HEAD;
             ptr = request + 5; // ptr is the URL.
+            ptr[strlen(ptr)-1] = 0;
         }
         if (strncmp(request, "POST ", 5) == 0)
         {
             request_type = POST;
             ptr = request + 5;
+            ptr[strlen(ptr)-1] = 0;
         }
         
 
@@ -44,15 +47,15 @@ ntohs(client_addr->sin_port), request);
             printf("\tUNKNOWN REQUST!\n");
         else
         {
-            if (ptr[strlen(ptr) - 2] == '/' && strlen(ptr) == 2 && request_type == GET) 
+            if (ptr[strlen(ptr) - 1] == '/' && strlen(ptr) == 1 && request_type == GET) 
             {
                 views_index(sockfd, length, ptr);
             }
-            else if (strncmp(ptr, "/turn-on ", 9) == 0 && request_type == POST)
+            else if (strncmp(ptr, "/turn-on", 8) == 0 && strlen(ptr) == 8 && request_type == POST)
             {
                 views_turnon(sockfd);
             }        
-            else if (strncmp(ptr, "/turn-off ", 10) == 0 && request_type == POST)
+            else if (strncmp(ptr, "/turn-off", 9) == 0 && strlen(ptr) == 9 && request_type == POST)
             {
                 views_turnof(sockfd);
             }
