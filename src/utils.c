@@ -35,30 +35,22 @@ int recv_line(int sockfd, unsigned char *dest_buffer)
 {
 #define EOL "\r\n" // End-Of-Line byte sequence
 #define EOL_SIZE 2
+   unsigned char *ptr;
+   int eol_matched = 0;
 
-    unsigned char *ptr;
-    int eol_matched = 0;
-
-    ptr = dest_buffer;
-
-    while ( recv(sockfd, ptr, 1, 0) == 1 ) // read single byte
-    {
-        if(*ptr == EOL[eol_matched])
-        {
-            eol_matched++;
-            if (eol_matched == EOL_SIZE) // if all bytes match terminator
-            {
-                *(ptr + 1 - EOL_SIZE) = '\0'; // terminate the string
-                return strlen(dest_buffer);
-            }
-        }
-        else
-        {
-            eol_matched = 0;
-        }
-        ptr++;
-    }
-
-    return 0; // did not find
+   ptr = dest_buffer;
+   while(recv(sockfd, ptr, 1, 0) == 1) { // read a single byte
+      if(*ptr == EOL[eol_matched]) { // does this byte match terminator
+         eol_matched++;
+         if(eol_matched == EOL_SIZE) { // if all bytes match terminator,
+            *(ptr+1-EOL_SIZE) = '\0'; // terminate the string
+            return strlen(dest_buffer); // return bytes recevied
+         }
+      } else {
+         eol_matched = 0;
+      }   
+      ptr++; // increment the pointer to the next byter;
+   }
+   return 0; // didn't find the end of line characters
 }
 
