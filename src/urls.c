@@ -6,8 +6,8 @@
 
 void handle_connection(int sockfd, struct sockaddr_in *client_addr)
 {
-    unsigned char *ptr, request[500], responce[500];
-    int fd, length;
+    unsigned char *ptr, request[500];
+    int length;
     enum REQUEST_TYPE request_type;
 
     length = recv_line(sockfd, request);
@@ -46,7 +46,7 @@ ntohs(client_addr->sin_port), request);
         {
             if (ptr[strlen(ptr) - 2] == '/' && strlen(ptr) == 2 && request_type == GET) 
             {
-                views_index(sockfd);
+                views_index(sockfd, length, ptr);
             }
             else if (strncmp(ptr, "/turn-on ", 9) == 0 && request_type == POST)
             {

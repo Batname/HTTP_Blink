@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <sys/stat.h>
 
 #include "utils.h"
 
@@ -52,5 +53,12 @@ int recv_line(int sockfd, unsigned char *dest_buffer)
       ptr++; // increment the pointer to the next byter;
    }
    return 0; // didn't find the end of line characters
+}
+
+int get_file_size(int fd) {
+    struct stat stat_struct;
+    if(fstat(fd, &stat_struct) == -1)
+        return -1;
+    return (int) stat_struct.st_size;
 }
 

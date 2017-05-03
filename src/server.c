@@ -9,7 +9,6 @@
 #include "urls.h"
 
 #define PORT        8080
-#define WEBROOT     "./web"
 
 int main(int argc, const char *argv[])
 {
