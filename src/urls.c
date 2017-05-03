@@ -2,6 +2,7 @@
 
 #include "urls.h"
 #include "utils.h"
+#include "views.h"
 
 void handle_connection(int sockfd, struct sockaddr_in *client_addr)
 {
@@ -43,27 +44,23 @@ ntohs(client_addr->sin_port), request);
             printf("\tUNKNOWN REQUST!\n");
         else
         {
-            if (ptr[strlen(ptr) - 2] == '/' && strlen(ptr) == 2) // TODO, why 2
+            if (ptr[strlen(ptr) - 2] == '/' && strlen(ptr) == 2 && request_type == GET) 
             {
-                printf("Home page\n");
+                views_index(sockfd);
             }
-            if (strncmp(ptr, "/turn-on ", 9) == 0)
+            else if (strncmp(ptr, "/turn-on ", 9) == 0 && request_type == POST)
             {
-                printf("turn-on\n");
+                views_turnon(sockfd);
             }        
-            if (strncmp(ptr, "/turn-off ", 10) == 0)
+            else if (strncmp(ptr, "/turn-off ", 10) == 0 && request_type == POST)
             {
-                printf("turn-off\n");
-            } 
+                views_turnof(sockfd);
+            }
+            else {
+                views_not_found(sockfd);
+            }
         }
     }
-
-
-    // FOR TEST
-    send_string(sockfd, "HTTP/1.0 200 OK\r\n");
-    send_string(sockfd, "Server: Tiny webserver\r\n\r\n");
-    send_string(sockfd, "<html><head><title>200 OK</title></head>");
-    send_string(sockfd, "<body><h1>OK</h1></body></html>\r\n");
 
     shutdown(sockfd, SHUT_RDWR);
 }

@@ -11,7 +11,7 @@ LIBS		= -lwiringPi -lpthread -lcrypt -lrt -lm
 
 
 SRC		= server.c utils.c \
-		  urls.c
+		  urls.c views.c
 
 HEADERS 	= $(shell ls *.h)
 
