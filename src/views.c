@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <sys/socket.h>
 #include <string.h>
+#include <wiringPi.h>
 
 #include "views.h"
 #include "utils.h"
@@ -47,14 +48,18 @@ void views_index(int sockfd, int length, char *ptr)
 
 void views_turnon(int sockfd)
 {
+    digitalWrite(7, 1);
+
     send_string(sockfd, "HTTP/1.0 200 OK\r\n");
     send_string(sockfd, "Content-Type: application/json\r\n");
     send_string(sockfd, "Server: Tiny webserver\r\n\r\n");
     send_string(sockfd, "{\"status\": \"ok\"}\r\n");
 }
 
-void views_turnof(int sockfd)
+void views_turnoff(int sockfd)
 {
+    digitalWrite(7, 1);
+
     send_string(sockfd, "HTTP/1.0 200 OK\r\n");
     send_string(sockfd, "Content-Type: application/json\r\n");
     send_string(sockfd, "Server: Tiny webserver\r\n\r\n");

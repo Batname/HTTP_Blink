@@ -5,13 +5,22 @@
 #include <sys/socket.h>
 #include <netinet/in.h>
 
+#include <wiringPi.h>
+
 #include "utils.h"
 #include "urls.h"
 
 #define PORT        8080
+#define PIN         7
 
 int main(int argc, const char *argv[])
 {
+    // Raspbery pi setup
+    if (wiringPiSetup() == -1)
+        fatal("Raspbery piSetup didn't work... Aborting.");
+    pinMode(PIN, OUTPUT); 
+    digitalWrite(PIN, 0);
+
     int sockfd, new_sockfd, status, yes = 1;
 
     // Address information

@@ -57,7 +57,7 @@ ntohs(client_addr->sin_port), request);
             }        
             else if (strncmp(ptr, "/turn-off", 9) == 0 && strlen(ptr) == 9 && request_type == POST)
             {
-                views_turnof(sockfd);
+                views_turnoff(sockfd);
             }
             else {
                 views_not_found(sockfd);
